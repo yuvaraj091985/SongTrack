@@ -11,27 +11,27 @@ import com.yuvaraj.coding.songtrack.R;
 
 import java.util.List;
 
-class songListAdapter extends RecyclerView.Adapter<songListViewHolder> {
+class ElementListAdapter extends RecyclerView.Adapter<ElementListViewHolder> {
 
     public OnItemClickListener itemClickListener;
 
     private List<String> songList;
 
-    public songListAdapter(List<String> trackList, OnItemClickListener listener){
+    public ElementListAdapter(List<String> trackList, OnItemClickListener listener){
         songList = trackList;
         itemClickListener = listener;
     }
 
     @NonNull
     @Override
-    public songListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ElementListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View view = layoutInflater.inflate(R.layout.song_name_item, parent,false);
-        return new songListViewHolder(view);
+        return new ElementListViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull songListViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ElementListViewHolder holder, int position) {
 
         holder.bind(songList.get(position), itemClickListener);
     }

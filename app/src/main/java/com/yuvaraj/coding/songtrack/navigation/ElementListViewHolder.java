@@ -8,15 +8,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.yuvaraj.coding.songtrack.R;
 
-class songListViewHolder extends RecyclerView.ViewHolder {
+class ElementListViewHolder extends RecyclerView.ViewHolder {
     private TextView textView;
 
-    public songListViewHolder(@NonNull View itemView) {
+    public ElementListViewHolder(@NonNull View itemView) {
         super(itemView);
         textView = itemView.findViewById(R.id.name);
     }
 
-    public void bind(final String value, final songListAdapter.OnItemClickListener itemClicklistener) {
+    public void bind(final String value, final ElementListAdapter.OnItemClickListener itemClicklistener) {
         textView.setText(value);
         textView.setOnClickListener(new View.OnClickListener() {
             @Override

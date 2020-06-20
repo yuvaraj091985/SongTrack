@@ -8,10 +8,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.yuvaraj.coding.songtrack.R;
 
-class songDetailsListViewHolder extends RecyclerView.ViewHolder {
+class ItemListViewHolder extends RecyclerView.ViewHolder {
     private TextView textView;
 
-    public songDetailsListViewHolder(@NonNull View itemView) {
+    public ItemListViewHolder(@NonNull View itemView) {
         super(itemView);
         textView = itemView.findViewById( R.id.name);
     }

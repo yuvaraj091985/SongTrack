@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/nav_details"
-        android:name="com.yuvaraj.coding.songtrack.details.SongDetailsFragment"
+        android:name="com.yuvaraj.coding.songtrack.details.ItemFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintLeft_toLeftOf="parent"

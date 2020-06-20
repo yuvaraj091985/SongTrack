@@ -11,24 +11,24 @@ import com.yuvaraj.coding.songtrack.R;
 
 import java.util.List;
 
-class songDetailsListAdapter extends RecyclerView.Adapter<songDetailsListViewHolder> {
+class ItemListAdapter extends RecyclerView.Adapter<ItemListViewHolder> {
 
     private List<String> songList;
 
-    public songDetailsListAdapter(List<String> trackList){
+    public ItemListAdapter(List<String> trackList){
         songList = trackList;
     }
 
     @NonNull
     @Override
-    public songDetailsListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ItemListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View view = layoutInflater.inflate(R.layout.song_name_item, parent,false);
-        return new songDetailsListViewHolder(view);
+        return new ItemListViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull songDetailsListViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ItemListViewHolder holder, int position) {
 
         holder.getTextView().setText(songList.get(position));
     }

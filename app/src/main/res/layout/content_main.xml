@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.yuvaraj.coding.songtrack.navigation.NavigationFragment"
+        android:name="com.yuvaraj.coding.songtrack.navigation.ElementFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintLeft_toLeftOf="parent"
