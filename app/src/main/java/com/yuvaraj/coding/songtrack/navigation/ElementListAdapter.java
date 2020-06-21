@@ -1,5 +1,6 @@
 package com.yuvaraj.coding.songtrack.navigation;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,12 +15,16 @@ import java.util.List;
 class ElementListAdapter extends RecyclerView.Adapter<ElementListViewHolder> {
 
     public OnItemClickListener itemClickListener;
+    private Context context;
 
     private List<String> songList;
+    private int selectedItem;
 
-    public ElementListAdapter(List<String> trackList, OnItemClickListener listener){
+    public ElementListAdapter(Context appContext, List<String> trackList, OnItemClickListener listener){
+        context = appContext;
         songList = trackList;
         itemClickListener = listener;
+        selectedItem = -1;
     }
 
     @NonNull
@@ -31,9 +36,25 @@ class ElementListAdapter extends RecyclerView.Adapter<ElementListViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ElementListViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ElementListViewHolder holder, final int position) {
 
-        holder.bind(songList.get(position), itemClickListener);
+        holder.bind(songList.get(position));
+
+        holder.outerLayout.setBackgroundColor(context.getColor(R.color.colorPrimary));
+        if (selectedItem == position) {
+            holder.outerLayout.setBackgroundColor(context.getColor(R.color.colorPrimaryDark));
+        }
+        holder.outerLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                itemClickListener.onItemClick(songList.get(position));
+                int previousItem = selectedItem;
+                selectedItem = position;
+
+                notifyItemChanged(previousItem);
+                notifyItemChanged(position);
+            }
+        });
     }
 
     @Override

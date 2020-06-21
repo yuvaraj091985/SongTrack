@@ -33,7 +33,7 @@ public class ElementFragment extends Fragment {
 
         recyclerView = root.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
-        recyclerView.setAdapter(new ElementListAdapter(songList, new ElementListAdapter.OnItemClickListener() {
+        recyclerView.setAdapter(new ElementListAdapter(getContext() ,songList, new ElementListAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(String item) {
                 sharedViewModel.data(item);
