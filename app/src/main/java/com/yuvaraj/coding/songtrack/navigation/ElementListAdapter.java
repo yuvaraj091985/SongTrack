@@ -47,7 +47,7 @@ class ElementListAdapter extends RecyclerView.Adapter<ElementListViewHolder> {
         holder.outerLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                itemClickListener.onItemClick(songList.get(position));
+                itemClickListener.onItemClick(songList.get(position), position);
                 int previousItem = selectedItem;
                 selectedItem = position;
 
@@ -57,13 +57,18 @@ class ElementListAdapter extends RecyclerView.Adapter<ElementListViewHolder> {
         });
     }
 
+    public void setSelected(int position) {
+        selectedItem = position;
+        notifyItemChanged(position);
+    }
+
     @Override
     public int getItemCount() {
         return songList.size();
     }
 
     public interface OnItemClickListener {
-        void onItemClick(String item);
+        void onItemClick(String item, int position);
     }
 
 }

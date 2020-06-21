@@ -45,6 +45,7 @@ public class ItemFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
         itemListAdapter = new ItemListAdapter(trackList);
         recyclerView.setAdapter(itemListAdapter);
+        setRetainInstance(true);
         return root;
     }
 
