@@ -69,7 +69,7 @@ public class ItemFragment extends Fragment {
         itemListAdapter.setSelected(selectedValue);
 
         //scroll to selected position
-        recyclerView.scrollToPosition(selectedValue);
+        recyclerView.smoothScrollToPosition(selectedValue);
 
         //toRetain fragment on config changes
         setRetainInstance(true);

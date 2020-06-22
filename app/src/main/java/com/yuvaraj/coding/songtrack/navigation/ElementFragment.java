@@ -59,7 +59,7 @@ public class ElementFragment extends Fragment {
 
         recyclerView.setAdapter(adapter);
         adapter.setSelected(selectedValue);
-        recyclerView.scrollToPosition(selectedValue);
+        recyclerView.smoothScrollToPosition(selectedValue);
 
         setRetainInstance(true);
 
