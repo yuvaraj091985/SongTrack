@@ -21,14 +21,6 @@ public class LandingActivity extends AppCompatActivity {
         drawerLayout = findViewById(R.id.drawer_layout);
         setSupportActionBar(toolbar);
 
-        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-            Toast.makeText(LandingActivity.this, " We are in portrait mode",
-                    Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(LandingActivity.this, "We are in Landscape mode",
-                    Toast.LENGTH_SHORT).show();
-        }
-
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

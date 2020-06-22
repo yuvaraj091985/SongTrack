@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.yuvaraj.coding.songtrack.OnItemClickListener;
 import com.yuvaraj.coding.songtrack.R;
 import com.yuvaraj.coding.songtrack.viewmodel.SharedData;
 
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ElementFragment extends Fragment {
+    private static final String SELECTED_VALUE = "selectedValue";
     private SharedData sharedViewModel;
     private RecyclerView recyclerView;
     private List<String> songList = new ArrayList<>();
@@ -34,17 +36,19 @@ public class ElementFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
         songList.clear();
-        songList.add("Element 1");
-        songList.add("Element 2");
+
+        for(int i =1;i<=100;i++) {
+            songList.add("Element " +i);
+        }
 
         if (savedInstanceState != null) {
-            selectedValue = savedInstanceState.getInt("selectedValue");
+            selectedValue = savedInstanceState.getInt(SELECTED_VALUE);
         }
 
         recyclerView = root.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
 
-        adapter = new ElementListAdapter(getContext() ,songList, new ElementListAdapter.OnItemClickListener() {
+        adapter = new ElementListAdapter(getContext() ,songList, new OnItemClickListener() {
 
             @Override
             public void onItemClick(String item, int position) {
@@ -55,6 +59,7 @@ public class ElementFragment extends Fragment {
 
         recyclerView.setAdapter(adapter);
         adapter.setSelected(selectedValue);
+        recyclerView.scrollToPosition(selectedValue);
 
         setRetainInstance(true);
 
@@ -62,18 +67,8 @@ public class ElementFragment extends Fragment {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-    }
-
-    @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
-        outState.putInt("selectedValue", selectedValue);
+        outState.putInt(SELECTED_VALUE, selectedValue);
         super.onSaveInstanceState(outState);
     }
 

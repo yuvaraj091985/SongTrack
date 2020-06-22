@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.yuvaraj.coding.songtrack.OnItemClickListener;
 import com.yuvaraj.coding.songtrack.R;
 import com.yuvaraj.coding.songtrack.viewmodel.SharedData;
 
@@ -25,44 +25,72 @@ public class ItemFragment extends Fragment {
     private RecyclerView recyclerView;
     private ItemListAdapter itemListAdapter;
     private List<String> trackList = new ArrayList<>();
+    private int selectedValue = 0;
+    private boolean orientationChanged = false;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         sharedViewModel =
                 new ViewModelProvider(getActivity()).get(SharedData.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
+
+        //Observing on viewmodel livedata on any Element item change
         sharedViewModel.getData().observe(getViewLifecycleOwner(),new Observer<String>() {
             @Override
             public void onChanged(@Nullable String item) {
-                Toast.makeText(getActivity(), " We clicked on "+ item,
-                        Toast.LENGTH_SHORT).show();
-                updateDetails(item);
+                    updateDetails(item);
+
+                    //Observing if it was emitted on config change
+                    if(!orientationChanged) {
+                        itemListAdapter.setSelected(-1);
+                        recyclerView.scrollToPosition(0);
+                    }
+                    orientationChanged = false;
+
             }
         });
 
+        if (savedInstanceState != null) {
+            selectedValue = savedInstanceState.getInt("selectedValue");
+        }
 
         recyclerView = root.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
-        itemListAdapter = new ItemListAdapter(trackList);
+        itemListAdapter = new ItemListAdapter(getContext() ,trackList, new OnItemClickListener() {
+
+            @Override
+            public void onItemClick(String item, int position) {
+                selectedValue = position;
+            }
+        });
+
+        //Setting up the adapter
         recyclerView.setAdapter(itemListAdapter);
+        itemListAdapter.setSelected(selectedValue);
+
+        //scroll to selected position
+        recyclerView.scrollToPosition(selectedValue);
+
+        //toRetain fragment on config changes
         setRetainInstance(true);
         return root;
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        orientationChanged = true;
+        outState.putInt("selectedValue", selectedValue);
+        super.onSaveInstanceState(outState);
     }
 
     private void updateDetails(String value) {
 
         trackList.clear();
-        switch (value) {
-            case "Element 1" :
-                trackList.add("Element 1 Item 1");
-                trackList.add("Element 1 Item 2");
-                break;
-            case "Element 2" :
-                trackList.add("Element 2 Item 1");
-                trackList.add("Element 2 Item 2");
-                break;
 
+        for(int i =1; i<=100;i++){
+            trackList.add(value + " Item " +i);
         }
+
         itemListAdapter.notifyDataSetChanged();
     }
 }

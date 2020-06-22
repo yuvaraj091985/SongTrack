@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.yuvaraj.coding.songtrack.OnItemClickListener;
 import com.yuvaraj.coding.songtrack.R;
 
 import java.util.List;
@@ -16,13 +17,12 @@ class ElementListAdapter extends RecyclerView.Adapter<ElementListViewHolder> {
 
     public OnItemClickListener itemClickListener;
     private Context context;
-
-    private List<String> songList;
+    private List<String> ElementList;
     private int selectedItem;
 
     public ElementListAdapter(Context appContext, List<String> trackList, OnItemClickListener listener){
         context = appContext;
-        songList = trackList;
+        ElementList = trackList;
         itemClickListener = listener;
         selectedItem = -1;
     }
@@ -38,16 +38,19 @@ class ElementListAdapter extends RecyclerView.Adapter<ElementListViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ElementListViewHolder holder, final int position) {
 
-        holder.bind(songList.get(position));
+        holder.bind(ElementList.get(position));
 
-        holder.outerLayout.setBackgroundColor(context.getColor(R.color.colorPrimary));
+        holder.outerLayout.setBackgroundColor(context.getColor(R.color.elementPrimary));
+
         if (selectedItem == position) {
-            holder.outerLayout.setBackgroundColor(context.getColor(R.color.colorPrimaryDark));
+            holder.outerLayout.setBackgroundColor(context.getColor(R.color.elementSecondary));
         }
+
+        //Onclick of items
         holder.outerLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                itemClickListener.onItemClick(songList.get(position), position);
+                itemClickListener.onItemClick(ElementList.get(position), position);
                 int previousItem = selectedItem;
                 selectedItem = position;
 
@@ -64,11 +67,6 @@ class ElementListAdapter extends RecyclerView.Adapter<ElementListViewHolder> {
 
     @Override
     public int getItemCount() {
-        return songList.size();
+        return ElementList.size();
     }
-
-    public interface OnItemClickListener {
-        void onItemClick(String item, int position);
-    }
-
 }
